@@ -1,2 +1,9 @@
-# grafuri
-Note pentru cursul de „Elemente de teoria grafurilor” de la Universitatea de Stat „Alecu Russo” din Bălți
+Teoria grafurilor - note de curs
+================================
+
+[Descrierea în română](https://github.com/vundicind/grafuri-note-de-curs/blob/master/README-RO.md).
+
+Graph Theory Lecture Notes
+================================
+
+[Description in english](https://github.com/vundicind/grafuri-note-de-curs/blob/master/README-EN.md).
