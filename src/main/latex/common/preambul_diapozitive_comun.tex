@@ -1,0 +1,68 @@
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{lmodern}
+  %LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
+
+\usepackage[utf8x]{inputenc}
+\usepackage[romanian]{babel}
+  \deftranslation[to=romanian]{Definition}{Definiție}
+  \deftranslation[to=romanian]{Theorem}{Teoremă}
+  \deftranslation[to=romanian]{Example}{Exemplu}
+  \deftranslation[to=romanian]{Corollary}{Corolar}
+%\usepackage[T2A]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{fit}
+\usetikzlibrary{calc}
+\usepackage{tkz-graph}  
+  \GraphInit[vstyle=Classic]
+  \renewcommand*{\VertexInterMinSize}{2pt}
+  \renewcommand*{\VertexLightFillColor}{black}
+  \tikzset{
+    VertexStyle/.append style={
+                minimum size = 2pt,
+		font=\scriptsize
+%		font=\footnotesize
+    },
+    every picture/.append style={
+		  x=1cm,
+		  y=1cm
+    }
+  }
+
+\usepackage{tkz-berge}
+
+
+\usepackage{subfigure}
+
+\usepackage[justification=centering]{caption} % http://tex.stackexchange.com/questions/54475/centering-caption-of-a-figure
+  % Scoate/anulează prefixul ``Figura:'' de la denumirile figurilor;
+  % m-am gîndid că pentru o prezentare nu este nevoie de atîta oficialitate
+  % http://stackoverflow.com/questions/3842322/removing-prefix-from-figure-captions-in-latex
+  \captionsetup[figure]{labelformat=empty}
+
+\usepackage{color}
+%\usepackage[usenames]{xcolor}
+
+% Tema
+
+\usecolortheme{seagull}
+\useoutertheme{infolines}
+\usefonttheme[onlymath]{serif}
+\setbeamertemplate{headline}[default]
+\setbeamertemplate{navigation symbols}{}
+\mode<beamer>{\setbeamertemplate{blocks}[rounded][shadow=true]}
+\setbeamercovered{transparent}
+\setbeamercolor{block body example}{fg=blue, bg=black!20}
+
+\setlength{\parskip}{6pt plus 2pt minus 2pt}
+\renewcommand{\emph}[1]{\textbf{#1}}
+\renewcommand{\alert}[1]{\textcolor{blue}{#1}}
+
+\input{../common/mygr}
+
+\subtitle{Teoria grafurilor}
+\author[R. Dumbrăveanu]{Radu Dumbrăveanu}
+\institute[USARB]{Universitatea de Stat ``A. Russo'' din Bălți\texorpdfstring{\\}{ }Facultatea de Științe Reale\texorpdfstring{\\}{ }\vspace{2em}{\footnotesize Această prezentare este pusă la dispoziţie sub \href{https://creativecommons.org/licenses/by-sa/3.0/deed.ro}{Licenţa Atribuire - Distribuire-în-condiţii-identice 3.0 Ne-adaptată (CC BY-SA 3.0)}}}
+\date{Bălți, 2013}

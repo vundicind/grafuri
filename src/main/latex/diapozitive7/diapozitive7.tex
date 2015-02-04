@@ -1,0 +1,180 @@
+\title{Curs 7: Colorare}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+ \frametitle{Colorare}
+
+\begin{definition}
+Fie $G=(V,E)$ un graf. O \emph{$k$-colorare} a lui $V$, unde $k\in\mathbb{N}$, poate fi definită 
+ca o funcție $c:V\to\{1,2,...,k\}$.
+\end{definition}
+
+Colorarea se numește proprie dacă $\forall u,v\in V$, $u$ și $v$ vecine, 
+$c(u)\neq c(v)$. 
+
+Graful care conține bucle nu poate avea colorări proprii.
+
+\end{frame}
+
+\begin{frame}
+ În cele ce urmează în loc de termenul "colorare proprie" vom 
+folosi simplu termenul "colorare".
+
+\end{frame}
+
+\begin{frame}
+\includegraphics[scale=0.4]{../../resources/diapozitive11/g90.png} 
+3-colorare
+
+\pause
+\includegraphics[scale=0.4]{../../resources/diapozitive11/g91.png}
+4-colorare
+
+\pause
+\includegraphics[scale=0.4]{../../resources/diapozitive11/g92.png}
+5-colorare
+
+{\tiny http://www.personal.kent.edu/~rmuhamma/GraphTheory/MyGraphTheory/coloring.htm}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Numărul cromatic}
+
+Numărul minim de culori necesare unei colorări proprii a unui graf $G$ s.n. 
+\emph{numărul cromatic} al grafului și se notează cu $\chi(G)$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numărul cromatic. Marginea de sus}
+
+\begin{theorem}
+Fie $G$ un garf simplu atunci $\chi(G)\leq \Delta(G)+1$
+\end{theorem}
+\pause
+
+\begin{theorem}[Brook]
+Fie $G$ un graf simplu conex. Dacă $G$ nu este un graf complet și nu este graful ciclu, atunci 
+ $\chi(G)\leq \Delta(G)$.
+\end{theorem}
+
+ 
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Numărarea colorărilor}
+
+Fie $G=(V,E)$ un graf. Notăm prin $P(G,k)$ sau $\pi_k(G)$ numărul de colorări 
+posibile cu $k$ culori.
+ 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numărarea colorărilor la $E_n$}
+
+$E_1$\\
+$P(G,k)=k$
+
+$E_2$\
+$P(G,k)=k\cdot k$
+
+$E_3$\\
+$P(G,k)=k\cdot k\cdot k$
+
+...
+$E_n$\\
+$P(G,k)=\underbrace{k\cdot k\cdot ... \cdot k}_{n} = k^n$
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Numărarea colorărilor la $K_n$}
+
+$K_1$\\
+$P(G,k)=k$
+
+$K_2$\\
+$P(G,k)=k(k-1)$
+
+$K_3$\\
+$P(G,k)=k(k-1)(k-2)$
+
+...
+$K_n$\\
+$P(G,k)=\underbrace{k(k-1)(k-2)...(k-(n-1))}_{n}$
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+\frametitle{Polinomul cromatic}
+\begin{theorem}
+$P(G,k)$ este un polinom. Mai mult, dacă graful $G$ este simplu atunci 
+\[
+  P(G,k) = P(G-e,k) - P(G/e,k).
+\]
+\end{theorem}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+\frametitle{Demonstrație}
+Demonstrăm prin inducție pe $n=||G||$. Pentru $n=0$ avem graful nul pentru 
+care $P(E_n,k) = k^n$ (polinom). Deci teorem este verificată.
+\newpage
+Presupunem că teorema are loc pentru orice graf cu numărul de muchii mai mic 
+decît $n$. Fie $G$ un graf cu $n$ muchii, $n\geq 1$. În $G$ alegem o muchie și 
+notăm capetele acesteia prin $u$ și $v$. Dacă eliminăm muchia $e$ obținem două 
+grafuri noi: $G-e$ și $G/e$. 
+\newpage
+Acum, pentru $G-e$ avem mai multe posibilități de colorare decît pentru $G$: 
+orice colorare a lui $G-e$ în care $u$ și $v$ au culori diferite este și o 
+colorare a lui $G$, iar colorările în care $u$ și $v$ au aceeași culoare nu 
+pot fi considerate colorări ale lui $G$.
+\newpage
+Pe de altă parte aceste colorări sînt colorări pentru $G/e$ întrucît în el 
+$u$ și $v$ au fost combinate într-un singur vîrf. Deci
+\[
+  P(G,k) = P(G-e,k) - P(G/e,k).
+\]
+
+
+\end{frame}
+
+\begin{frame}
+Notația $P(G, k)$ se numește polinom cromatic, iar demonstrația teoremei 
+poate fi utilizată drept algoritm de determinare a polinomului cormatic.
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Proprietăți ale polinomului cromatic}
+  
+
+\begin{enumerate}
+ \item $P(G,k) = k^n-a_1k^{n-1}+a_2k^{n-2}-...$ unde $a_i\geq 0$ și $n$ este 
+ numărul de vîrfuri ale grafului.
+\pause
+ 
+ \item $P(G,k) = k^n-mk^{n-1}+...$ unde $m$ este numărul de muchii a grafului $G$
+\pause
+ \item $P(G,k)$ este divizibil prin $k$
+\pause
+ \item Semnele coeficienților alternează
+\pause
+ \item Cel mai mic $i$ pentru care $a_1\neq 0$ reprezintă numărul de componente a grafului
+\pause
+ \item Dacă $G=G_1\cup G_2$ de grafuri disjuncte, atunci $P(G,k) = P(G_1,k)P(G_2,k)$
+
+\end{enumerate}
+ 
+\end{frame}
+
+
+
+
+\end{document}
+

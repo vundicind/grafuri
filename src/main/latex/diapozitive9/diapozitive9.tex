@@ -1,0 +1,386 @@
+
+\title{Curs 9: Grafuri orientate}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{frame}
+  \frametitle{Graf orientat; Arce}
+
+\begin{definition}
+Un \emph{graf orientat} este o pereche $G=(V,E)$ de mulțimi unde $E$ este o mulțime de perechi ordonate de elemente din $V$. 
+\end{definition}
+
+Elementele mulțimii $V$ se numesc \emph{vîrfurile} grafului $G$; elementele mulțimii $E$ se numesc \emph{arcele} grafului $G$.
+
+Mulțimea arcelor este o submulțime a produsului cartezian $V\times V$. 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reprezentarea grafică}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \Vertex{u}
+  \NOWE(u){v} \NOEA(u){x} \SOEA(u){y} \SOWE(u){z}
+  \SetUpEdge[style={->}]
+  \Edge(u)(v) \Edge(u)(x) \Edge(u)(y) \Edge(u)(z)
+\end{tikzpicture}
+\caption{$G=(\{u,v,x,y,z\},$ $\{(u,v),(u,x),(u,y),(u,z)\})$}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reprezentarea grafică}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \Vertex[Lpos=60]{u}
+  \NOWE[Lpos=60](u){v} \NOEA[Lpos=60](u){x} \SOEA[Lpos=60](u){y} \SOWE[Lpos=60](u){z}
+  \SetUpEdge[style={->}]
+  \Edge(v)(z) \Edge(x)(y)
+  \SetUpEdge[style={->,bend left}]
+  \Edge(v)(x) \Edge(z)(y)
+\end{tikzpicture}%
+\caption{$H=(V,E)$ unde $V=\{u,v,x,y,z\}$, $E=\{vx,xy,zy,vz\}$}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Grade}
+
+\emph{Gradul exterior} al vîrfului $v$ se notează $d^+(v)$ şi este egal cu numărul de arce care au ca extremitate iniţială pe $v$.
+
+\emph{Gradul interior} al vîrfului $v$ se notează $d^-(v)$ şi este egal cu numărul de arce care au ca extremitate finală pe $v$.
+
+Se numește \emph{succesor} al vîrfului $v$ oirce vîrf la care ajunge un arc care iese din vîrful $v$
+
+Se numește \emph{predecesor} al vîrfului vîrf orice vîrf la care intră un arc  in vîrful $v$ 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Grade}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \Vertex[Lpos=60]{u}
+  \NOWE[Lpos=60](u){v} \NOEA[Lpos=60](u){x} \SOEA[Lpos=60](u){y} \SOWE[Lpos=60](u){z}
+  \SetUpEdge[style={->}]
+  \Edge(v)(z) \Edge(x)(y)
+  \SetUpEdge[style={->,bend left}]
+  \Edge(v)(x) \Edge(z)(y)
+\end{tikzpicture}%
+\end{figure}
+
+Succesorul vîrfului $x$ este $y$; predecesorul lui $x$ este $v$.
+
+Grade interioare și exterioare: $d^-(x)=d^+(x)=1$; $d^-(y)=2$ și $d^+(y)=0$.
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Drum; Circuit}
+
+Se numeşte \emph{drum} într-un graf orientat o secvenţă de vîrfuri $v_1,v_2,...,v_n$, astfel încît pentru oricare două vîrfuri consecutive $v_i$ şi $v_{i+1}$ există arcul $(v_i,v_{i+1})$. 
+
+Un drum închis, începutul și sfîrșitul coincid, se numește \emph{circuit}. 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Drum vs Lanț; Circuit vs ciclu}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \SetUpEdge[style={->}]
+  \grCycle[RA=1,prefix=v]{4}
+  \Vertex[L=v_4,Lpos=180,x=-2,y=0]{v4}
+  \Edge(v3)(v1)
+  \Edge(v4)(v2)
+\end{tikzpicture}%
+\end{figure}
+
+Drum de la $v_0$ la $v_3$: $(v_0,v_1,v_2,v_3)$.
+
+Lanț care nu este drum: $(v_1,v_2,v_4)$.
+
+În general nu există drumuri care să se termine în $v_4$.
+
+Cicuit: $v_1,v_2,v_3,v_1$.
+
+Ciclu, dar nu și circuit: $v_0,v_1,v_3,v_0$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Secvențe infinite de vîrfuri}
+
+\begin{lemma}
+Dacă un digraf conține o secvență infinită de vîrfuri $(v_0,v_1,...)$ astfel încît $v_{i-1}v_i$ este un arc pentru orice $i>0$, atunci $G$ conține un circuit.
+\end{lemma}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+  \tikzset{EdgeStyle/.style = {->}}
+  \grWheel[RA=1.5,prefix=v]{8}
+\end{tikzpicture}%
+\caption{Exemplu de secvența infinită cu prorietatea că $v_{i-1}v_i$ este un arc pentru orice $i$: $(v_0,v_1,...,v_5,v_6,v_0,v_1,...,v_5,v_6,...)$.}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Secvențe infinite de vîrfuri}
+
+\begin{proof}
+Graful $G$ are un număr finit de vîrfuri; reiese că în secvență sînt vîrfuri care se repetă.
+
+Fie că $v_i=v_j$ pentru un careva $i<j$  și toți $v_k$, $i<k<j$ sînt diferiți (nu se repetă în acest diapazon).
+
+Atunci $v_i,v_{i+1},...,v_j$ este un ciclu în $G$.
+\end{proof}
+
+Analog putem demonstra următoarea lemă:
+
+\begin{lemma}
+Dacă un digraf conține o secvență infinită de vîrfuri $(v_0,v_1,...)$ astfel încît $v_{i+1}v_i$ este un arc pentru orice $i\geq 0$, atunci $G$ conține un circuit.
+\end{lemma}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Surse și destinații}
+
+\begin{theorem}
+Un digraf fără circuite contine cel puţin un vîrf fără succesori şi cel puţin un vîrf fără predecesori.
+\end{theorem}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Surse și destinații}
+
+\begin{proof}
+Presupunem că $G$ nu conține vîrfuir fără succesori.
+
+Alegem $v_0$ în baza presupunerii acesta are cel puțin un succesor; alegem unul din ei, de exemplu $v_1$.
+
+Pentru $v_1$ este valabilă aceeași presupunere, deci putem alege succserotul $v_2$ ș.amd.m.d.
+
+Dar atunci lema spune că graful are circuite; Contradicție.
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Drumuri; Număr cromatic}
+
+\begin{theorem}
+Orice graf orientat $G$ conține un drum elementar de lungimea $\chi(G)-1$.
+\end{theorem}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conexitate tare}
+
+Într-un digraf două vîrfuri se numesc \emph{tare conexe} dacă există un drum de la primul vîrf spre al doilea și invers.
+
+Un digraf este \emph{tare conex} dacă orice două vîrfuri sînt tare conexe.
+
+Vom considera că orice vîrf este tare conex cu el însăși.
+
+Un digraf este \emph{conex} dacă între orice două vîrfuri există un lanț.
+
+Într-un digraf care nu este tare conex putem evidenția \emph{componente tari} [conexe].
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Grafuri orientate remarcabile}
+
+Graf orientat \emph{complet} pe $n$ vîrfuri este graful în care între orice două vîrfuri există un arc.
+
+În general pe $n$ vîrfuri putem construi mai multe grafuri complete.
+
+Un graf orientat se numeşte \emph{antisimetric} dacă pentru oricare două vârfuri din graf $u$ şi $v$ dacă există arcul $(u,v)$, atunci nu există arcul $(v,u)$.
+
+Un graf orientat complet şi antisimetric se numeşte graf \emph{turneu}.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Digraf asimetric; Turneu}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \SetUpEdge[style={->}]
+  \grEmptyCycle[RA=1.5,prefix=v]{4}
+  \Edges(v0,v1,v2,v3,v0)
+  \Edges(v0,v2) \Edges(v3,v1)
+
+  \grEmptyCycle[x=5,RA=1.5,prefix=v]{4}
+  \Edges(v0,v1,v2,v3,v0)
+  \Edges(v0,v2) \Edges(v3,v1)
+  \Edge[style={->,bend left}](v1)(v0)
+\end{tikzpicture}
+\end{figure}
+
+Primul digraf este un turneu; al doilea nu este antisimetric și respectiv nu poate fi turneu.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Grafuri orientate remarcabile}
+
+Notațiile pentru grafurile remarcabile neorientate rămîn aceleași doar că prefixate cu ``D'';
+
+Digraful circuit: $DC_n$.
+
+Digraful drum: $DP_n$.
+
+Digraful complet: $DK_n$.
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Orientări}
+
+Un graf neorientat poate fi transformat într-un digraf asociind fiecărei muchii o direcție.
+
+Acest proces se numește \emph{orientare} a grafului.
+
+Dacă un graf neorientat are $m$ muchii acesta poate orientat în $2^m$ moduri; în general printre aceste $2^m$ digrafuri unele sînt izomorfe.
+
+O problemă practică în cazul orientarii grafurilor este de a orienta astfel încît digraful rezultat să fie tare conex.
+
+O astfel de orientare se numește \emph{orientare tare}.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Orientări tari}
+
+\begin{theorem}
+Un graf conex $G$ are o orientare tare dacă și numai dacă orice muchie aparține la cel puțin un ciclu. 
+\end{theorem}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Turnee}
+
+În cazul cînd avem o competiție sportivă în care fiecare participant trebuie să joace cu toți ceilalți participanți și rezultatul fiecărui joc este cîștig sau pierdere; acesta poate fi modelată printr-un digraf.
+
+Participanții reprezentăm prin vîrfuri, iar dacă $x$ a cîștigat jucînd cu $y$ ducem un arc de $xy$.
+
+Pentru $n$ participanți avem un graf orientat complet și asimetric; care se numește turneu.
+
+Gradul exterior al unui vîrf este numărul de cîștiguri al acestui participant.
+
+Dacă avem arcul $xy$ spunem că $x$ \emph{domină} $y$.
+
+Un turneu este reductibil dacă mulțimea vîrfurilor poate fi partiționată în două submulțimi nevide $X$ și $Y$ astfel încît fiecare vîrf din $X$ domină fiecare vîrf din $Y$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Turnee}
+
+\begin{theorem}
+Un turneu este ireductibil dacă și numai dacă este tare conex. 
+\end{theorem}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Turnee}
+ 
+\begin{proof}
+Presupunem că $G$ este un turneu reductibil și fiecare vîrf din $X$ domină fiecare vîrf din $Y$.
+
+Atunci nici un vîrf din $X$ nu este accesibil din $Y$ (nu există drum din $Y$ spre $X$), deci $G$ nu este tare conex.
+
+Presupunem că $G$ nu este tare conex; fie două vîrfuri $u$ și $v$ astfel încît $v$ nu este accesibil din $u$.
+
+Notăm prin $X$ mulțimea tuturor vîrfurilor care nu-s accesibile din $u$.
+
+Și prin $Y$ mulțimea vîrfurilor care-s accesibile din $u$.
+
+Atunci $X$ și $Y$ nu sînt vide deoarece $u\in X$ și $v\in Y$; $X\cap Y=\emptyset$ și $X\cup Y=V(G)$.
+
+În plus orice vîrf din $X$ domină orice vîrf din $Y$. Deci $G$ este reductibil.
+
+\end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Turnee}
+
+\begin{corollary}
+Orice vîrf dintr-un turneu ireductibil aparține unui circuit de lungimea 3. 
+\end{corollary}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Turnee; Drum Hamilton}
+
+Un drum Hamilton este drum elementar care conține toate vîrfurile digrafului
+
+\begin{theorem}
+Orice turneu conține un drum Hamilton. 
+\end{theorem}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Turnee; Drum Hamilton}
+
+\begin{proof}
+Fie dat un turneu pe $n$ vîrfuri; adică un $DK_n$.
+
+În baza unei teoreme anterioare în $DK_n$ există un drum elementar de lungimea $\chi(DK_n)-1$.
+
+Acesta este drumul Hamilton căutat deoarece $\chi(DK_n)=n-1$.
+\end{proof}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Turnee; Circuit Hamilton}
+
+\begin{theorem}
+Orice vîrf într-un turneu tare conex pe $n$ vîrfuri, $n\geq 3$, aparține unui circuit de lungimea $k$ pentru orice $3\leq k\leq n$.
+\end{theorem}
+
+\begin{corollary}
+Orice turneu tare conex conține un circuit Hamilton.
+\end{corollary}
+
+\end{frame}
+
+\end{document}
+

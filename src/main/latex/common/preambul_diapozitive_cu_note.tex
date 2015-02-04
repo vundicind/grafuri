@@ -1,0 +1,13 @@
+%\documentclass[hyperref={pdfpagelabels=false,unicode}]{beamer}
+  %not working in Ubuntu
+\documentclass[hyperref=unicode,handout]{beamer}
+\input{../common/preambul_diapozitive_comun}
+
+% În acest articol: http://www.guidodiepen.nl/2009/07/creating-latex-beamer-handouts-with-notes/
+% este descris cum de generat diapozitive împreună cu note;
+% problema este că autorul a creat un pachet: http://www.guidodiepen.nl/wp-content/uploads/2009/07/handoutWithNotes.sty
+% pe care nu l-a băgat în CTAN, respectiv eu trebuie sa-l instalez pe orice calculator lucre.
+% Nu e bine; din aacest motiv eu am copiat conținutul pachetului într-un simplu fișier .tex: handoutWithNotes.tex
+\usepackage{pgfpages}
+\input{../common/handoutWithNotes.tex}
+\pgfpagesuselayout{2 on 1 with notes}[a4paper,border shrink=5mm]

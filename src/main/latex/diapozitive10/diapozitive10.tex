@@ -1,0 +1,278 @@
+\title{Curs 10: Rețele; Fluxuri}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+  \frametitle{Rețea}
+
+O \emph{rețea} este un graf orientat cu două vîrfuri speciale: un vîrf fără predecesori (vîrf sursă), al doilea fără succesori (vîrf destinație); iar fiecare arc are asociată o anumită \emph{capacitate}.
+
+Formal o rețea este o structură $N=(G,s,t,c)$, unde:
+\begin{itemize}
+  \item $G$ - digraf;
+  \item $s$ și $t$ - sursa și destinația;
+  \item $c:E(G)\to\mathbb{R}$ - funcția \emph{capacitate}.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Flux în rețea}
+
+Fiind dat un digraf $G$ și o funcție $f:E(G)\to\mathbb{R}$ vom nota
+\[
+  f(X,Y)=\sum_{e\in E(X,Y)} f(e) \text{ pentru orice } X,Y\subseteq V(G).
+\]
+
+În particular, $f(x,Y) = f(\{x\},Y\setminus \{x\})$.
+
+Un \emph{flux} într-o rețea $N=(G,s,t,c)$ este o funcție $f:E(G)\to\mathbb{R}$ care verifică condițiile:
+\begin{enumerate}
+  \item[(F1)] $f(u,v)=-f(v,u)$ pentru orice $(u,v)\in E(G)$, $u\neq v$;
+  \item[(F2)] $f(v,V(G))=0$ pentru orice $v\in V(G)\setminus\{s,t\}$;
+  \item[(F3)] $f(e)\leq c(e)$ pentru orice $e\in E(G)$.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Flux în rețea}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \Vertex{s}
+  \SetGraphUnit{2}
+  \NOEA[NoLabel](s){v1}
+  \SOEA[NoLabel](s){v2}
+  \SetGraphUnit{3}
+  \EA[NoLabel](v1){v3}
+  \EA[NoLabel](v2){v4}
+  \SetGraphUnit{2}
+  \NOEA(v4){t}
+
+  \SetUpEdge[style={->}]
+  \Edges[label=3](s,v1) \Edges[label=0](s,v2)
+  \Edges[label=1](v1,v3) \Edges[label=1](v1,t) \Edges[label=3](v1,v4)
+  \Edges[label=2](v2,v1) \Edges[label=2](v4,v2)
+  \Edges[label=1](v3,t)
+  \Edges[label=1](v4,t)
+\end{tikzpicture}
+\caption{Diestele,p142; Flux în rețea}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Flux în rețea}
+
+Evident, din $(F1)$ pentru orice $X\subseteq V(G)$ avem $f(X,X)=0$.
+
+Un flux se numește \emph{integral} dacă toate valorile acestuia sînt numere întregi.
+
+Valoarea $f(v,V(G))$ se numește \emph{fluxul net} în vîrful $v$. 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tăietură}
+
+O \emph{tăietură} în rețea este perechea $(S,V(G)\setminus S)$ unde $S\subseteq V(G)$ cu $s\in S$ și $t\in V(G)\setminus S$.
+
+\begin{theorem}
+Orice tăietură $(S,V(G)\setminus S)$ într-o rețea verifică 
+\[
+  f(S,V(G)\setminus S)=f(s,V(G)).
+\]
+ 
+\end{theorem}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tăietură}
+
+\begin{proof}
+\[
+  \begin{array}{ll}
+    f(S,S^c)	&= f(S,V) - f(S,S)\\
+    (F1)	&= (f(s,V) + f(S\setminus\{s\},V)) - 0\\
+    (F2)	&= f(s,V)
+  \end{array}
+\]
+ 
+\end{proof}
+
+Valoarea comună a $f(S,S^c)$ se numește \emph{valoare} fluxului $f$ și se notează $|f|$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ford și Fulkerson}
+
+Din (F3) avem că $f(S,S^c)\leq c(S,S^c)$; respectiv valoarea totală nu întrece cea mai mică capacitate a unei tăieturi.
+
+Următoarea teoremă spune că acestă margine este mereu atinsă.
+
+\begin{theorem}[Ford și Fulkerson]
+În orice rețea, maximul valorii totale a unui flux este egală cu capacitatea minimă a tăieturilor.
+\end{theorem}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Circulații; Grupuri}
+
+Fiind dat un semigrup abelain cu 0, $H$, o \emph{$H$-circulație} într-o rețea este o funcție $f:E(G)\to H$ încît:
+\begin{itemize}
+  \item[(F1)] $f(u,v)=-f(v,u)$ pentru orice $(u,v)\in E(G)$, $u\neq v$;
+  \item[(F2')] $f(v,V(G))=0$ pentru orice $v\in V(G)$.
+\end{itemize}
+
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Circulații; Grupuri}
+
+Evident, din $(F1)$ pentru orice $X\subseteq V(G)$ avem $f(X,X)=0$.
+
+În plus, din $(F2')$ , 
+\[
+  f(X,V(G))=\sum_{x\in X}f(x,V)=0.
+\]
+
+\begin{theorem}
+Dacă $X\subseteq V$ atunci $f(X,X^c)=0$.
+\end{theorem}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Circulații; Grupuri}
+
+\begin{proof}
+\[
+  f(X,X^c)=f(X,V)-f(X,X)=0-0=0.
+\]
+
+\end{proof}
+
+\begin{corollary}
+Dacă $f$ este o circulație și $e$ o punte atunci $f(e)=0$. 
+\end{corollary}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Circulații; Grupuri}
+
+Dacă $H$ este un grup abelian atunci toate circulațiile pe $G$ formează un grup într-un mod natural cu operațiile
+
+$(f+g)(e)=f(e)+g(e)$ și $(-f)(e)=-f(e)$.
+
+O circulație cu proprietatea $f(e)\neq 0$ pentru orice $e\in E$ se numește $H$-flux.
+
+$H$-fluxurile nu formează un grup. 
+
+Din ultimul corolar un graf care are un $H$-flux nu poate avea punți.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Circulații; Grupuri}
+
+Un $\mathbb{Z}$-flux se numește $k$-flux, $k\in\mathbb{N^*}$, dacă $0<|f(e)|<k$ pentru orice $e\in E$.
+
+Evident un $k$-flux este $l$-flux pentru orice $l>k$.
+
+Astfel apare întrebarea: care este cel mai mic $k$ îcît $G$ să admită $k$-flux?
+
+Acest număr se notează $\varphi(G)$ si se numește \emph{număr de flux}.
+
+Dacă $G$ nu are $k$-fluxuri pentru orice $k$ punem $\varphi(G)=\infty$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{$k$ și $\mathbb{Z}_k$}
+
+\begin{theorem}
+Un multigraf admite $k$-flux dacă și  numai dacă admite $\mathbb{Z}_k$-flux.  
+\end{theorem}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{$k$ și $\mathbb{Z}_k$}
+
+\begin{theorem}
+Un graf are un 2-flux dacă și numai dacă toate vîrfurile au grad par.  
+\end{theorem}
+
+\begin{proof}
+Graful $G=(V,E)$ are 2-flux dacă și numai dacă are un $\mathbb{Z}_2$-flux.
+
+Fie $f:E\to\mathbb{Z}_2$, $f(xy)=1$.
+
+Funcția $f$ verifică proprietatea $(F1)$ deoarece $f(yx)=1=-1$.
+
+Funcția $f$ va verifica proprietatea $(F2')$ numai dacă fiecare vîrf va avea grad par. 
+\end{proof}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{$k$ și $\mathbb{Z}_k$}
+
+\begin{theorem}
+Pentru orice $n>4$, $\varphi(K_n)=3$. 
+\end{theorem}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fluxuri și colorări}
+
+Fie $G=(V,E)$ un graf planar și $G^*=(V^*,E^*)$ dualul său.
+
+Fie $g$ o circulație pe $G^*$ ce poate induce acestă circulație pe $G$?
+
+De exemplu cunoaștem că tăieturile minime pe $G^*$ sînt cicluri în $G$.
+
+Astfel din proprietatea $g(X,X^c)=0$ avem că suma $g$ pentru toate muchiile unui ciclu în $G$ trebuie să fie zero.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fluxuri și colorări}
+
+\begin{theorem}
+Fie $G$ digraf plan și $G^*$ digraful său dual. Atunci există o bijecție de la $E$ la $E^*$ cu proprietățile
+\begin{enumerate}
+  \item ???
+\end{enumerate}
+
+\end{theorem}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fluxuri și colorări}
+
+\begin{theorem}[Tutte]
+Pentru orice pereche $G$ și $G^*$ de graf plane și dualul său $\chi(G)=\varphi(G^*)$. 
+\end{theorem}
+\end{frame}
+
+\end{document}
+

@@ -1,0 +1,402 @@
+
+\title{Curs 8: Grafuri planare}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+  \frametitle{Exemplu fabrica; T\' uran}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Grafuri planar; Graf plan}
+
+Un graf $G$ se numește \emph{planar} dacă poate fi reprezentat în plan astfel încît muchiile să nu se intersecteze decît în vîrfuri. 
+
+O astfel de reprezentare se numește \emph{hartă} (sau \emph{graf-plan}), iar graful $G$ se numește \emph{graful suport} al hărții respective. 
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexNoLabel
+
+  \grComplete[RA=1]{4}
+  \grCycle[x=4,RA=1,prefix=v]{4}
+  \Edges(v0,v2)
+  \Edges[style={bend left,in=90,out=90}](v1,v3)
+\end{tikzpicture}
+\caption{Graful $K_4$ împreună cu harta sa}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Numărul de intersecții}
+
+\emph{Numărul de intersecții} este numărul de perechi diferite de muchii care se intersectează într-o reprezentare a grafului.
+
+Este logic să vorbim despre numărul minim de astfel de perechi.
+
+Un graf planar are numărul minim de intersecții egal cu zero.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fețe}
+
+Orice reprezentare a unui graf planar împarte planul în regiuni numite \emph{fețe}. 
+
+Mulțimea fețelor se notează prin $F$. 
+
+Întotdeauna există o față infinită/nemărginită numită \emph{fața exterioară}.
+
+Orice față $f$ este un poligon. 
+
+Numărul de muchii ale poligonului se notează prin $d(f)$ și se numește \emph{gradul} feței.
+
+\begin{theorem}
+Pentru orice graf planar
+\[
+ \sum_{f\in F} d(f) = 2|E|
+\]
+\end{theorem} 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fețe}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \mygrHousePlanar
+  \node(f0) at (0,1){$f_0$};
+  \node(f1) at (1,0.5){$f_1$};
+  \node(f2) at (1.5,-0.3){$f_2$};
+\end{tikzpicture}
+\caption{$|F|=3$; $f_0$ este fața exterioară}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fețe}
+
+\begin{theorem}
+Fie $G$ un graf plan și $e$ o muchie din $G$, atunci:
+\begin{enumerate}
+  \item Dacă $e$ aparține unui ciclu elementar $C\subseteq G$ atunci $e$ aparține frontierei a exact două fețe;
+  \item Dacă $e$ nu aparține unui ciclu elementar atunci $e$ aparține frontierei a exact a unei fețe;
+\end{enumerate}
+
+\end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fețe}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \mygrHousePlanar
+  \node(f0) at (0,1){$f_0$};
+  \node(f1) at (1,0.5){$f_1$};
+  \node(f2) at (1.5,-0.3){$f_2$};
+\end{tikzpicture}
+\caption{Graf plan $G$}
+\end{figure}
+
+Muchia $uv$ aparține ciclului elementar $(u,v,x,u)$ și în același timp aparține frontierei fețelor $f_0$ și $f_1$.
+
+Muchia $xz$ nu aprține unui ciclu elementar și se află pe frontiera feței $f_0$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fețe}
+
+\begin{corollary}
+Un arbore plan are exact o față.
+\end{corollary}
+
+\begin{corollary}
+Dacă un graf plan are fețe diferite cu aceeași frontieră atunci acesta este un graf ciclu.
+\end{corollary}
+
+\begin{corollary}
+Într-un graf 2-conex orice față este mărginită de un ciclu.
+\end{corollary}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Formula Euler}
+
+ \begin{theorem}
+Pentru orice graf $G=(V,E)$ planar și conex
+\[
+  |V|-|E|+|F|=2
+\]
+\end{theorem}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Formula Euler}
+
+ \begin{proof}
+Demonstrăm prin inducție tare pe $m=||G||$ (numărul de muchii). 
+
+Pentru $m=0$ avem graful nul cu un singur vîrf (întrucît $G$ trebuie să fie conex); $|V|=1$ și $|F|=1$; teorema este verificată.
+
+Presupunem că teorema este adevărată pentru orice graf cu $|E|<m$. 
+
+Fie $G$ un graf cu $|E|=m$, $m\geq 1$.
+
+Alegem, în mod arbitrar, o muchie $e$ și cercetăm subgraful $H=G-e$. 
+
+Considerăm două cazuri: $H$ este conex și $H$ nu este conex.
+
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+\begin{proof}
+{\em Cazul I.} Dacă $H$ este conex, reiese că $e$ nu este o punte în $G$ și deci aparține unui ciclu.
+
+În acest caz $e$ mărginește două fețe diferite, iar în rezultatul eliminării, aceste fețe sau unit în una singură, deci $|F(H)|=|F|-1$. 
+
+Astfel, întrucît $V(G)=V(H)$ obținem:
+\[
+  \begin{array}{ll}
+    |V|-|E|+|F|	&= |V(H)|-(|E(H)|+1)+(|F(H)|+1)\\
+		&= |V(H)|-|E(H)|+|F(H)|-1+1 = 2.
+  \end{array}
+\]
+ 
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+\begin{proof}
+{\em Cazul al II-lea.} Graful $H$ nu este conex. 
+
+Reiese că $e$ este o punte și întrucît am eliminat doar o muchie $H$ constă din două compoenente conexe $H_1=(V_1,E_1)$ și 
+$H_2=(V_2,E_2)$. 
+
+Iar întrucît atît $H_1$ cît și $H_2$ are un numar de muchii mai mic ca $m$ pentru ele este adevărată formula lui Euler:
+\[
+ |V_1|-|E_1|+|F_1| = 2
+\]
+și
+\[
+ |V_2|-|E_2|+|F_2| = 2
+\]
+Dar $|V| = |V_1|+|V_2|$, $|E|=|E_1|+|E_2|+1$ și $|F| = |F_1|+|F_2|-1$ și 
+\[
+ \begin{array}{ll}
+   |V|-|E|+|F| &= |V_1|+|V_2|-(|E_1|+|E_2|+1)+(|F_1|+|F_2|-1) \\
+   & = |V_1|-|E_1|+|F_1| + |V_2|-|E_2|+|F_2| -1 -1\\
+   &= 2 + 2 - 1 -1 =2
+ \end{array} 
+\]
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Aplicații ale formulei Euler}
+
+Graful $K_{3,3}$ nu este planar.
+
+\begin{proof}
+Presupunem, prin absurd,  că $K_{3,3}$ este planar. Atunci din formula lui Euler 
+avem:
+\[
+ |F| = 2 - |V| + |E| = 2-6+9 = 5.
+\]
+Deci trebuie să fie $5$ fețe. Deoarece cel mai scurt ciclu în $K_{3,3}$ are 
+lungimea 4 reiese că orice față trebuie să aibă gradul $\geq 4$.
+Acum
+\[
+ 18 = 2|E| = \sum_{f\in F}d(f) \geq 5\cdot 4 = 20
+\]
+Contradicție.
+
+\end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Aplicații ale formulei Euler}
+
+ $K_5$ nu este planar.
+
+
+Demonstrați analog această propoziție 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Aplicații ale formulei Euler}
+
+ Graful Petersen nu este planar.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Teorema lui Kuratowski}
+ 
+
+\begin{definition}
+O \emph{subdiviziune} a unui graf este un graf nou obținut din $G$ prin 
+inserarea de vîrfuri (de gradul 2) în muchiile lui $G$
+\end{definition}
+
+Cîteva observații:
+\begin{enumerate}
+ \item dacă $G$ este planar atunci orice subgraf al acestuia este planar.
+ 
+ \item dacă o subdiviziune a unui graf $G$ este un graf planar atunci $G$ este 
+ planar
+\end{enumerate}
+
+\begin{theorem}[Kuratowski]
+Un graf nu este planar dacă și numai dacă o subdiviziune a lui $K_{3,3}$ sau 
+$K_5$ este un subgraf al lui $G$.
+\end{theorem}
+
+
+Arătați că Petersen verifică teorema lui Kuratowski.
+
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Graf dual}
+
+Fie $G$ un graf plan. 
+
+Amplasăm cîte un vîrf în fiecare față a grafului $G$; și notăm mulțimea acestor vîrfuri prin $V^*$.
+
+Pentru fiecare muchie $e$ unim două vîrfuri din $V^*$ printr-o muchie $e^*$ dacă aceste vîrfuri sînt localizate în fețele cu care acestă muchie este incidentă.
+
+Dacă muchia $e$ este incidentă cu o singură față atunci vîrfului asociat acestei fețe îi facem o buclă care intersectează $e$.
+
+Graful $G^*=(V^*,E^*)$ se numește graful dual al lui $G$. 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graf dual}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+  {
+    \SetUpEdge[color=gray!10]
+    \tikzset{VertexStyle/.append style={color=gray!10}}
+    \renewcommand*{\VertexTextColor}{gray!10}
+
+    \mygrHousePlanar
+  }
+
+  \SetVertexNoLabel
+  \Vertex[x=2,y=1]{f0}
+  \Vertex[x=1,y=0.5]{f1}
+  \Vertex[x=1.5,y=-0.3]{f2}
+  \Edges(f0,f1) \Edges[style={bend right}](f0,f1)
+\end{tikzpicture}
+\caption{Graful dual $G^*$}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Graf dual}
+
+Tăieturile minimale din $G^*$ sînt cilcurile din $G$ și invers.
+
+\end{frame}
+
+
+\begin{frame}
+ \begin{definition}
+Un poliedru este un corp 3 dimensional la care fețele sînt poligoane.
+\end{definition}
+
+Un poliedru este convex dacă orice segment care unește două puncte din 
+interiorul poliedrului conține numai puncte din interiorul poliedrului. Un 
+poliedru convex poate fi proiectat în plan obținînd un graf-plan.
+
+\begin{definition}
+Un poliedru convex se numște \emph{corp platonic} dacă există $m\geq 3$ și 
+$n\geq 3$ încît orice vîrf are gradul $m$ și orice fața are gradul $n$ (sau 
+echivalent, dacă toate fețele sînt poligoane regulate congruente).
+\end{definition}
+
+De ce se numesc corpuri platonice?
+
+Cubul este un corp platonic cu $m=3$ și $n=4$.
+\end{frame}
+
+\begin{frame}
+ \begin{theorem}
+Există exact 5 corpuri platonice.
+\end{theorem}
+\begin{proof}
+Fie $G$ un graf planar obținut la proiecția corpului platonic. Atunci 
+\[
+2|E|=\sum_{v\in V}d(v) = m|V|
+\]
+\[
+2|E|=\sum_{f\in F}d(f) = n|F|
+\]
+În același timp, din formula lui Euler
+\[
+ |V|-|E|+|F|=2
+\]
+În rezultatul, înmulțind cu $mn$
+\[
+ 2mn = mn|V|-mn|E|+mn|F|
+ =2n|E|-mn|E|+2m|E|
+\]
+Deci
+\[
+ |E|=\frac{2mn}{2n-mn+2m}=\frac{2mn}{4-(m-2)(n-2)}
+\]
+Acum deoarece $|E|>0$ și $2mn>0$ reise că $(m-2)(n-2)< 4$ și iată toate 
+posibilitățile
+
+
+
+\end{proof}
+\end{frame}
+
+\begin{frame}
+ \begin{tabular}{cccccc}
+\hline
+m&n&|V|&|E|&|F|&platonic solid\\
+\hline
+3&3&4&6&4&tetraedru\\
+4&3&6&12&8&octaedru\\
+3&4&8&12&6&cub\\
+5&3&12&30&20&icosaedru\\
+3&5&20&30&12&dodecaedru
+\end{tabular}
+\end{frame}
+
+
+\end{document}
+

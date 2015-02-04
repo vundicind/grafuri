@@ -1,0 +1,107 @@
+\newcommand{\mygrHouse}{
+  \Vertex[Lpos=180]{v}
+  \NOEA(v){u}
+  \SOEA(u){x}
+  \SO(x){y}
+  \SO[Lpos=180](v){z}
+  \Edges(v,u,x,y,v,x)
+  \Edges(z,x)
+}
+
+\newcommand{\mygrHousePlanar}{
+  \Vertex[Lpos=180]{v}
+  \NOEA(v){u}
+  \SOEA(u){x}
+  \SO(x){y}
+  \NOEA(x){z}
+  \Edges(v,u,x,y,v,x)
+  \Edges(z,x)
+}
+
+\newcommand{\mygrHouseM}{
+  \mygrHouse
+  \Loop[style={-},dir=NO,dist=1cm](u)
+  \Loop[style={-},dir=SOWE,dist=1cm](y)
+  \Loop[style={-},dir=SOWE,dist=2cm](y)
+  \Edge[style={bend right}](z)(x)
+  \Edge[style={bend right}](v)(u)
+  \Edge[style={bend left}](v)(u)
+}
+
+\newcommand{\mygrComet}{
+  \SetUpVertex[Lpos=80,Ldist=-3pt]
+  \grPath[RA=1,prefix=u]{2}
+
+  \SetUpVertex[Lpos=0]
+  \grCycle[RA=1,x=3,prefix=v]{4}
+  \Edges(u1,v2)
+  \Edges(u0,v1)
+  \Edges(u0,v3)
+}
+
+\newcommand{\mygrLadder}{
+  \begin{scope}[rotate=90]
+    \grEmptyLadder[RA=1,RB=1.5,prefix=u,prefixx=v]{4}
+    \Edge(u0)(v0) \Edge(u2)(v0) \Edge(u2)(v1) \Edge(u3)(v2) \Edge(u1)(v3)
+  \end{scope}
+}
+
+\newcommand{\mygrLadderMattchingA}{
+  \begin{scope}[rotate=90]
+    {
+      \SetUpEdge[color=gray!10]
+      \tikzset{VertexStyle/.append style={color=gray!10}}
+      \renewcommand*{\VertexTextColor}{gray!10}
+
+      \grEmptyLadder[RA=1,RB=1.5,prefix=u,prefixx=v]{4}
+      \Edge(u0)(v0) \Edge(u2)(v0) \Edge(u2)(v1) \Edge(u3)(v2) \Edge(u1)(v3)
+    }
+    
+    \Edge(v2)(u3) \Edge(v0)(u2)
+  \end{scope}
+}
+
+\newcommand{\mygrLadderMattchingMaximal}{
+  \begin{scope}[rotate=90]
+    {
+      \SetUpEdge[color=gray!10]
+      \tikzset{VertexStyle/.append style={color=gray!10}}
+      \renewcommand*{\VertexTextColor}{gray!10}
+
+      \grEmptyLadder[RA=1,RB=1.5,prefix=u,prefixx=v]{4}
+      \Edge(u0)(v0) \Edge(u2)(v0) \Edge(u2)(v1) \Edge(u3)(v2) \Edge(u1)(v3)
+    }
+      
+    \Edge(v3)(u1) \Edge(v2)(u3) \Edge(v0)(u2)
+  \end{scope}
+}
+
+\newcommand{\mygrLadderMattchingMaxim}{
+  \begin{scope}[rotate=90]
+    {
+      \SetUpEdge[color=gray!10]
+      \tikzset{VertexStyle/.append style={color=gray!10}}
+      \renewcommand*{\VertexTextColor}{gray!10}
+
+      \grEmptyLadder[RA=1,RB=1.5,prefix=u,prefixx=v]{4}
+      \Edge(u0)(v0) \Edge(u2)(v0) \Edge(u2)(v1) \Edge(u3)(v2) \Edge(u1)(v3)
+    }
+
+    \Edge(v0)(u0) \Edge(v1)(u2) \Edge(v3)(u1) \Edge(v2)(u3)
+  \end{scope}
+}
+
+\newcommand{\mygrLadderCovering}{
+  \begin{scope}[rotate=90]
+    {
+      \SetUpEdge[color=gray!10]
+      \tikzset{VertexStyle/.append style={color=gray!10}}
+      \renewcommand*{\VertexTextColor}{gray!10}
+
+      \grEmptyLadder[RA=1,RB=1.5,prefix=u,prefixx=v]{4}
+      \Edge(u0)(v0) \Edge(u2)(v0) \Edge(u2)(v1) \Edge(u3)(v2) \Edge(u1)(v3)
+    }
+
+    \EA(v0)(u0)
+  \end{scope}
+}

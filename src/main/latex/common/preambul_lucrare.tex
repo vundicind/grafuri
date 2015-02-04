@@ -1,0 +1,31 @@
+\documentclass[addpoints,10pt]{exam}
+  \hqword{Item}
+  \hpword{Puncte}
+  \hsword{Scor}
+  \htword{\textbf{Total}}
+  \cellwidth{1em}
+  \gradetablestretch{1.3}
+  \pointpoints{punct}{puncte}
+  \footer{}{Pagina \thepage\ din \numpages}{}
+  \boxedpoints
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[romanian]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage[top=0.5cm,right=1cm,bottom=2cm,left=1cm]{geometry}
+\usepackage{titling}
+\usepackage{graphicx}
+
+\renewcommand{\maketitle}{%
+\begin{tabularx}{\textwidth}{lXr}
+\thedate & \centering Teoria grafurilor & Prenumele și numele studentului\\
+Lector & \centering Semestrul 2, 2013 & \\
+\theauthor & \centering {\bf Lucrare de evaluare 1} & \makebox[5cm]{\hrulefill}
+\end{tabularx}
+
+\begin{center}
+\gradetable[h][questions]
+\end{center}%
+}

@@ -1,0 +1,537 @@
+
+\title{Curs 4: Arbori}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+  \frametitle{Arbori}
+
+Un \emph{arbore} este un graf conex fără cicluri.\pause
+
+Vîrfurile de gradul 1, într-un arbore, se numesc \emph{frunze}.\pause
+
+Arborele care constă doar dintr-un vîrf se numește arbore \emph{trivial}; adică $K_1$.\pause
+
+Orice arbore netrivial are cel puțin o frunză.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arbori}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexNoLabel
+
+  \Vertex{v}
+  \EA(v){x1} \NO(x1){y1} \SO(x1){z1}
+  \EA(x1){x2} \NO(x2){y2} \SO(x2){z2}
+  \EA(x2){x3} \NO(x3){y3} \SO(x3){z3}
+  \EA(x3){x4}
+  \Edges(v,x1,x2,x3,x4)
+  \Edges(y1,x1,z1) \Edges(y2,x2,z2) \Edges(y3,x3,z3)
+
+  \begin{scope}[shift={(7,0)}]
+    \grStar[RA=1]{6}
+  \end{scope}
+
+  \begin{scope}[shift={(0,-3)}]
+    \grPath[RA=1]{4}
+  \end{scope}
+
+  \begin{scope}[shift={(7,-3)}]
+    \Vertex{v}
+    \SOWE(v){x1}
+    \SOEA(v){x2}
+      \SOEA(x2){x3}
+      \SOWE(x2){x4}
+    \Edges(v,x1,v,x2,x3,x2,x4)
+  \end{scope}
+
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arbori; Punți}
+
+Conexitatea arborelui este una slabă; este de ajuns să suprimăm o muchie sau un vîrf care nu-i frunză din arbore și graful obținut nu mai este conex.
+
+Din acest punct de vedere arborii sînt grafuri minimal conexe.\pause
+
+\begin{theorem}
+Un graf conex $G$ este arbore dacă și numai dacă orice muchie a sa este punte.
+\end{theorem}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Arbori; Punți}
+
+\begin{proof}
+{\em Suficiența}. Fie $G$ conex și orice muchie e punte. Atunci nici o muchie 
+nu poate să se conțină într-un ciclu. \pause
+
+Deci este aciclic.\pause
+
+{\em Suficiența}. Fie $G$ arbore, deoarece nu conține cicluri reiese că fiecare 
+muchie este punte.
+\end{proof}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Lanț unic}
+
+\begin{theorem} 
+Într-un arbore pentru oricare două vîrfuri distincte, există un unic lanț elementar care le unește.
+\end{theorem}\pause
+
+\begin{proof} 
+Fie $G=(V,E)$ un arbore. \pause
+
+Presupunem, prin absurd, că există două vîrfuri diferite $u$ și $v$ pentru care $G$ conține cel puțin două $u-v$-lanțuri elementare distincte.\pause
+
+Notăm aceste lanțuri prin $P_1$ și $P_2$.\pause
+
+Întrucît $P_1\neq P_2$ există cel puțin un vîrf $x$ care aparține $P_1$ și nu aparține $P_2$.\pause
+
+Dar atunci există o muchie $e=xy$ în $P_1$ care nu aparține $P_2$. 
+
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Lanț unic}
+
+\begin{proof}[Demonstrație; Continuare]
+
+Din cele de mai sus reiese că subgraful $(P_1\cup P_2)-e$ este conex; adică conține un $x-y$-lanț. \pause
+
+Dar în așa caz subgraful $(P_1\cup P_2)+e$ va conține un ciclu, ceea ce este imposibil deoarece $G$ este arbore. 
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lanț unic}
+
+\begin{corollary}
+Un graf este arbore dacă și numai dacă pentru oricare două vîrfuri distincte, 
+există un unic lanț elementar care le unește.
+\end{corollary}\pause
+
+\begin{proof}
+Evident, dacă orice două vîrfuri sînt unite printr-un unic lanț reiese că $G$ 
+este în I rînd conex și în al II-lea rînd aciclic.
+\end{proof}
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numărul de vîrfuri vs. numărul de muchii}
+
+ \begin{theorem}\label{GTA-2.1}
+Dacă $G$ este un arbore atunci $\|G\|=|G|-1$.
+\end{theorem}\pause
+
+\begin{proof}
+Demonstrăm prin inducție tare pe $n=|G|$ (numărul de vîrfuri).\pause
+
+\emph{Pasul I:} Pentru $n=1$ avem graful trivial la care numărul de muchii este 0. \pause
+
+Deci teorema este verificată.\pause
+
+\emph{Pasul I:} Presupunem că teorema este adevărată pentru orice arbore cu numărul de vîrfuri mai mic decît $n$. \pause
+
+Fie $G$ un arbore cu $n$ vîrfuri, $n\geq 2$. \pause
+
+Alegem o muchie $e=uv\in E(G)$; atunci unicul $u-v$-lanț este însăși muchia $e$.
+
+
+\end{proof}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Numărul de vîrfuri vs. numărul de muchii}
+
+\begin{proof}[Demonstrație; Continuare]
+Atunci $G-e$ este neconex și $G-e$ constă exact din două componente; fiecare dintre acest două componente fiind arbore. 
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  %\draw[help lines] (0,0) grid (5,5);
+
+  \SetGraphUnit{3}
+  \Vertex[x=1,y=1]{C} 
+  \Vertex[x=2,y=2]{D}
+  \Vertex[x=4,y=2]{E}
+
+  \Vertex[x=4.7,y=0.2]{J}
+  \Vertex[x=3,y=0.7]{I}
+  \Vertex[x=4.8,y=1.2]{H}
+  \Vertex[x=0.4,y=2.6]{B}
+  \Vertex[x=4.6,y=4]{G}
+  \Vertex[x=3,y=3.3]{F}
+  \Vertex[x=1,y=4.3]{A}
+
+  \Edges(B,A,F,E,G)
+  \Edges(C,D,I,J)
+  \Edge(E)(H)
+  \only<1>{\Edge(E)(I)}
+  
+  \only<3->{\node (G1) at ([yshift=5pt]$ (B.center) !.4! (F.center) $) {$G_1$};}  
+  \only<3->{\node (G2) at ([yshift=-5pt]$ (C.center) !.4! (I.center) $) {$G_2$};}  
+  
+  \begin{scope}[on background layer]
+    \only<3->{\fill [blue!20,draw] plot [smooth cycle] coordinates {%
+          ([xshift=-10pt] B.south west) (A.north) (F.north) %
+          ([yshift=10pt] G.north) (H.south east) %
+          ($ (B.center) !.6! (F.center) $)};}
+    \only<3->{\fill<3-> [red!20,draw] plot [smooth cycle] coordinates {%
+      ([xshift=-10pt] C.south west) ([yshift=10pt] D.north) %
+      ([yshift=10pt] I.north) ([yshift=5pt] J.north) %
+      ([xshift=10pt] J.east) ([yshift=-10pt] J.south) %
+      ([yshift=-10pt] I.south)};}
+  \end{scope}
+
+\end{tikzpicture} 
+\end{figure}
+
+\only<3->{Notăm prin $G_1$ și $G_2$ acesși doi arbori. }
+
+\end{proof}
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numărul de vîrfuri vs. numărul de muchii}
+
+\begin{proof}[Demonstrație; Continuare]
+Evident, $|G_1|,|G_2|<n$; dar atunci
+
+\begin{equation}
+  \|G_1\|=|G_1|-1 \label{GTA-2.1-1}
+\end{equation}
+
+și
+\begin{equation}
+  \|G_2\|=|G_2|-1. \label{GTA-2.1-2}
+\end{equation}\pause
+
+Aplicînd \eqref{GTA-2.1-1} și \eqref{GTA-2.1-2} obținem
+\[
+\begin{array}{rl}
+  \|G\| & =\|G_1\| + \|G_2\| + 1\\
+        & =\left(|G_1| - 1\right) + \left(|G_2| - 1\right) + 1\\
+        & =|G_1|+|G_2|-1=|G|-1.
+  \end{array}
+\]
+ 
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numărul de vîrfuri vs. numărul de muchii}
+
+ \begin{corollary}
+Orice arbore netrivial are cel puțin două vîrfuri cu gradul 1.
+\end{corollary}\pause
+
+\begin{proof}
+Fie $G=(V,E)$ un $(n, m)$-arbore netrivial atunci
+
+\[
+\begin{array}{rl}
+  \sum_{v\in V}d(v) & = 2m\\
+                    & = 2(n-1)\\
+                    & = 2n-2.
+\end{array}  
+\]\pause
+
+Pe de altă parte $G$ este netrivial și deci $d(v)\geq 1$, $\forall v\in V$.\pause
+
+Reiese că $G$ trebuie să aibă cel puțin două vîrfuri cu gradul 1.
+\end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arbori ``scufundate'' în alte grafuri}
+
+\begin{theorem}
+Fie $G$ un arbore cu $m$ muchii și $H$ un graf cu $\delta(H)\geq m$. Atunci $H$ are un subgraf izomorf cu $G$.
+\end{theorem}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arbore de acoperire}
+
+\begin{definition}
+  Un subgraf de acoperire conex și fără cicluri se numește \emph{arbore de acoperire}. 
+\end{definition}
+
+Doar un graf conex poate avea arbore de acoperire.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arbori de acoperire}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \mygrHouse
+
+  \begin{scope}[shift={(4,0)}]
+    \SetUpEdge[color=gray!10]
+    \mygrHouse
+    \Edges[color=black](z,x,u,v,y)
+  \end{scope}
+
+  \begin{scope}[shift={(8,0)}]
+    \SetUpEdge[color=gray!10]
+    \mygrHouse
+    \Edges[color=black](v,u,v,x,z,x,v,y)
+  \end{scope}
+
+\end{tikzpicture}
+\caption{De la stînga spre dreapta: un graf împreună cu doi arbori de acoperire ai săi}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Aplicații ale arborilor de acoperire}
+
+???
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Arbori de acoperire}
+
+\begin{corollary}
+Orice graf conex $G$ conține un arbore de acoperire.
+\end{corollary}
+\begin{proof}
+Fie $H$ un subgraf minimal de acoperire al lui $G$ care este conex. 
+
+Atunci pentru orice muchie $e$ din $H$, $H-e$ nu mai este conex. 
+
+Reiese că orice muchie a lui $H$ este punte, concludem că $H$ este un arbore.
+\end{proof}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Arbori de acoperire}
+
+
+\begin{corollary}
+Dacă $G$ este conex atunci $\|G\|\geq |G|-1$.
+\end{corollary}
+\begin{proof}
+Fie $H$ un arbore de acoperie al lui $G$ atunci pe de o parte $\|H\|=|H|-1$, 
+iar pe de altă parte $\|G\|\geq \|H\|$ și $|G|=|H|$.
+\end{proof}
+ 
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Arbori de acoperire}
+
+\begin{corollary}
+Un graf conex $G$ este arbore dacă și numai dacă $\|G\|=|G|-1$
+\end{corollary}
+\begin{proof}
+Necesitatea a fost deja demonstrată. 
+
+{\em Suficiența}. Presupunem, prin absurd, că $G$ nu este arbore. 
+
+Atunci pentru două vîrfuri $u$ și $v$ putem găsi două $uv$-lanțuri elementare. 
+
+Reiese că $G$ conține un ciclu $C$. 
+
+Fie $e$ o muchie din $C$ atunci $G-e$ rămîne conex. 
+
+Dar atunci $\|G-e\|=\|G\|-1$ și $\|G-e\|=n-2$ adică $G-e$ nu mai este conex; Contradicție.
+\end{proof}
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numărul de arbori de acoperire}
+
+În general, după cum s-a observat, un graf conex poate avea mai mult de un arbore de acoperire.
+
+Vom nota prin $\tau(G)$ numărul de arbori de acoperire ale grafului $G$. 
+
+Evident, dacă $G$ este arbore atunci $\tau(G)=1$.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numărul de arbori de acoperire}
+
+\begin{theorem}
+Dacă $G$ este un graf conex atunci
+\[
+  \tau(G)=\tau(G-e)+\tau(G/e)	\quad	\forall e\in E(G).
+\]
+
+\end{theorem}
+
+Acestă teoremă poate fi utilizată pentru a calcula, într-un mod recursiv, numărul de arbori de acoperire a unui graf conex.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Aplicații}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \begin{scope}
+    \grCycle[RA=1,prefix=v]{4}
+    \Edge[style={bend left}](v1)(v3)
+    \Edge[style={bend right}](v1)(v3)
+    \draw (0,-1.5) node (G) {$G$};
+  \end{scope}
+
+  \begin{scope}[shift={(3.5,0)}]
+    \grEmptyCycle[RA=1,prefix=v]{4}
+    \Edges(v1,v2,v3,v0)
+    \Edge[style={bend left}](v1)(v3)
+    \Edge[style={bend right}](v1)(v3)
+    \draw (0,-1.5) node (G1) {$G_1=G-v_0v_1$};
+  \end{scope}
+
+  \begin{scope}[shift={(6.5,0)}]
+    \Vertex[L=v_4,x=0,y=1]{v4}
+    \Vertex[L=v_2,x=-1,y=0]{v2}
+    \Vertex[L=v_3,x=0,y=-1]{v3}
+    \Edge[style={bend left}](v4)(v3)
+    \Edge[style={bend right}](v4)(v3)
+    \Edge[style={bend right,out=60,in=120}](v4)(v3)
+    \Edges(v4,v2,v3)
+    \draw (0,-1.5) node (G2) {$G_2=G/v_0v_1$};
+  \end{scope}
+
+\end{tikzpicture}
+\end{figure}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \begin{scope}
+    \grEmptyCycle[RA=1,prefix=v]{4}
+    \Edges(v1,v2,v3,v0)
+    \Edge[style={bend left}](v1)(v3)
+    \Edge[style={bend right}](v1)(v3)
+    \draw (0,-1.5) node (G1) {$G_1$};
+  \end{scope}
+
+  \begin{scope}[shift={(3.5,0)}]
+    \grEmptyCycle[RA=1,prefix=v]{4}
+    \Edges(v2,v3,v0)
+    \Edge[style={bend left}](v1)(v3)
+    \Edge[style={bend right}](v1)(v3)
+    \draw (0,-1.5) node (G1) {$G_3=G_1-v_1v_2$};
+  \end{scope}
+
+  \begin{scope}[shift={(6.5,0)}]
+    \Vertex[L=v_0,x=1,y=0]{v0}
+    \Vertex[L=v_4,x=0,y=1]{v4}
+    \Vertex[L=v_3,x=0,y=-1]{v3}
+    \Edge[style={bend left}](v4)(v3)
+    \Edge[style={bend right}](v4)(v3)
+    \Edge[style={bend left,out=300,in=240}](v4)(v3)
+    \Edges(v3,v0)
+    \draw (0,-1.5) node (G2) {$G_4=G_1/v_1v_2$};
+  \end{scope}
+
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \begin{scope}
+    \Vertex[L=v_4,x=0,y=1]{v4}
+    \Vertex[L=v_2,x=-1,y=0]{v2}
+    \Vertex[L=v_3,x=0,y=-1]{v3}
+    \Edge[style={bend left}](v4)(v3)
+    \Edge[style={bend right}](v4)(v3)
+    \Edge[style={bend right,out=60,in=120}](v4)(v3)
+    \Edges(v4,v2,v3)
+    \draw (0,-1.5) node (G2) {$G_2$};
+  \end{scope}
+
+  \begin{scope}[shift={(3.5,0)}]
+    \Vertex[L=v_4,x=0,y=1]{v4}
+    \Vertex[L=v_2,x=-1,y=0]{v2}
+    \Vertex[L=v_3,x=0,y=-1]{v3}
+    \Edge[style={bend left}](v4)(v3)
+    \Edge[style={bend right}](v4)(v3)
+    \Edge[style={bend right,out=60,in=120}](v4)(v3)
+    \Edges(v2,v3)
+    \draw (0,-1.5) node (G2) {$G_5=G-v_2v_4$};
+  \end{scope}
+
+  \begin{scope}[shift={(6.5,0)}]
+    \Vertex[L=v_4,x=0,y=1]{v5}
+    \Vertex[L=v_3,x=0,y=-1]{v3}
+    \Edge[style={bend left}](v5)(v3)
+    \Edge[style={bend right}](v5)(v3)
+    \Edge[style={bend right,out=60,in=120}](v5)(v3)
+    \Edge[style={bend left,out=300,in=240}](v5)(v3)
+    \draw (0,-1.5) node (G2) {$G_6=G/v_2v_4$};
+  \end{scope}
+
+\end{tikzpicture}
+\end{figure}
+
+\[
+  \begin{array}{ll}
+    \tau(G)	&= \tau(G_1)+\tau(G_2)\\
+		&= (\tau(G_3)+\tau(G_4))+(\tau(G_5)+\tau(G_6))\\
+		&= (2+3)+(3+4)\\
+		&= 12.
+  \end{array}
+\]
+
+ 
+\end{frame}
+
+
+
+
+
+\end{document}
+

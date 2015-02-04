@@ -1,0 +1,36 @@
+%\documentclass[a4paper,11pt,twocolumn]{article}
+\documentclass[a4paper,11pt]{article}
+\usepackage[top=-0cm,right=1cm,bottom=1.2cm,left=0.8cm]{geometry}
+%  \setlength{\columnsep}{distance}
+%  \setlength{\columnseprule}{thickness}
+
+\usepackage{exercise}
+  \renewcommand{\ExerciseName}{}
+  \renewcommand{\ExerciseListName}{}
+  \renewcommand{\ExerciseHeaderTitle}{\ExerciseTitle}
+  \renewcommand{\ExerciseHeader}{\textbf{
+                \ExerciseName\ExerciseHeaderNB.\ExerciseHeaderTitle
+                \ExerciseHeaderOrigin}}
+  \renewcommand{\ExerciseHeader}{\textbf{
+                \ExerciseName\ExerciseHeaderNB.\ExerciseHeaderTitle}}
+  \renewcommand{\ExerciseListHeader}{\ExerciseHeaderDifficulty%
+              \textbf{\ExerciseListName\ \ExerciseHeaderNB.%
+              \ \ExerciseHeaderTitle}%
+              \ExerciseHeaderOrigin\ignorespaces}
+  \renewcommand{\ExerciseListHeader}{\ExerciseHeaderDifficulty%
+              \textbf{\ExerciseListName\ \ExerciseHeaderNB.%
+              \ \ExerciseHeaderTitle}%
+              \ignorespaces}
+  \setlength{\ExerciseSkipBefore}{0.1\baselineskip}
+  \setlength{\ExerciseSkipAfter}{0.1\baselineskip}
+  \setlength{\Exesep}{0.1\baselineskip}
+  \setlength{\Exetopsep}{0.1\baselineskip}
+  \setlength{\Exeleftmargin}{25em}
+  \setlength{\QuestionBefore}{0\baselineskip}
+
+\usepackage{enumitem}
+  \setlist[0]{itemsep=-5pt}
+  \setlist{nolistsep}
+
+\input{../common/preambul_comun}
+\author{Teoria grafurilor\\Radu Dumbrăveanu}

@@ -1,0 +1,475 @@
+
+\title{Curs 6: Cuplaje; Factorizări}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+  \frametitle{Definiția cuplajului}
+
+Un \emph{cuplaj} al unui graf $G$ este o submulțime $M\subseteq E(G)$ astfel încît orice vîrf al lui $G$ este incident cu cel mult o singură muchie din $M$.\pause
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexNoLabel
+
+  \mygrLadder
+
+  \begin{scope}[shift={(3,0)}]
+    \mygrLadderMattchingA
+  \end{scope}
+
+  \begin{scope}[shift={(6,0)}]
+    \mygrLadderMattchingMaximal
+  \end{scope}
+
+  \begin{scope}[shift={(9,0)}]
+    \mygrLadderMattchingMaxim
+  \end{scope}
+  
+\end{tikzpicture}
+\end{figure} \pause
+
+Un cuplaj este o submulțime de muchii neadiacente două cîte două (adică \emph{mulțime independentă de muchii}).
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Vîrfuri saturate}
+
+Dacă un vîrf $v$ este incident cu o muchie din cuplajul $M$ spunem că:
+
+\begin{itemize}
+  \item vîrful $v$ este \emph{cuplat} (sau \emph{saturat}) de cuplajul $M$;
+  \item\mbox{} [sau că] $M$ \emph{cuplează} (sau \emph{saturează}) vîrful $v$.
+\end{itemize}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \mygrLadder
+
+  \begin{scope}[shift={(3,0)}]
+    \mygrLadderMattchingA
+  \end{scope}
+ 
+\end{tikzpicture}
+\end{figure}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Mulțimi saturate}
+
+Putem extinde noțiunea de ``vîrf saturat'' la noțiunea de ``mulțime saturată''.\pause
+
+Dacă $U\subseteq V(G)$ este o submulțime care conține în exclusivitate vîrfuri saturate de cuplajul $M$, atunci spunem că:\pause
+
+\begin{itemize}
+  \item mulțimea $U$ este \emph{cuplată} (sau \emph{saturată}) de cuplajul $M$;\pause
+  \item\mbox{} [sau că] $M$ \emph{cuplează} (sau \emph{saturează}) mulțimea $U$.
+\end{itemize}
+ 
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Cazuri particulare de cuplaje}
+
+\begin{itemize}[<+->]
+  \item \emph{Cuplaj perfect} - cuplajul care saturează toate vîrfurile grafului.
+  \item \emph{Cuplaj maximal} - cuplajul care este subgraf maximal în raport cu proprietatea de a fi cuplaj;
+    \begin{itemize}
+      \item dacă $M$ este un cuplaj maximal atunci $\forall e\in E(G)\setminus E(M)$, $M+e$ nu mai este cuplaj. 
+    \end{itemize}
+
+  \item \emph{Cuplaj maxim} - cuplajul de cardinalitate maximă;
+    \begin{itemize}
+      \item cuplajul maxim este cuplajul cu cel mai mare numar de muchii în raport cu toate celelalte cuplaje ale grafului;
+      \item pot fi mai multe cuplaje maxime, dar cardinalul acestora este un număr unic;
+      \item cardinalul cuplajelor maxime se numește \emph{număr de muchie-independență} și se noteaza $\nu(G)$.
+    \end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Cazuri particulare de cuplaje}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexNoLabel
+
+  \mygrLadder
+
+  \begin{scope}[shift={(3,0)}]
+    \mygrLadderMattchingA
+  \end{scope}
+
+  \begin{scope}[shift={(6,0)}]
+    \mygrLadderMattchingMaximal
+  \end{scope}
+
+  \begin{scope}[shift={(9,0)}]
+    \mygrLadderMattchingMaxim
+  \end{scope}
+  
+\end{tikzpicture}
+\end{figure}
+
+Ultimul cuplaj este maxim și perfect; Penultimul cuplaj este maximal.
+
+Orice cuplaj maxim este cuplaj maximal? Dar invers?
+
+Orice cuplaj perfecte este cuplaj maximal sau maxim? 
+
+Orice cuplaj maxim este cuplaj perfect?
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Problema cuplajului maxim}
+
+\emph{Fiind dat un graf să se determine un cuplaj maxim.}
+
+În cele ce urmează ne vom ocupa de condițiile necesare și suficiente pentru ca un cuplaj să fie maxim. 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lanț alternat}
+
+Un lanț elementar $P$ se numește \emph{alternant relativ la cuplajul} $M$ dacă muchiile lui $P$ aparțin alternativ mulțimilor $M$ și $E(G)\setminus M$.\pause
+
+Un lanț alternant relativ la cuplajul $M$ se numește \emph{de creștere relativ la cuplajul} $M$ dacă extremitățile acestui lanț sînt distincte și  nu sînt saturate de $M$.\pause
+
+Prima și ultima muchie a unui lanț de creștere relativ la un careva cuplaj nu aparțin acestui cuplaj. 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lanț alternat}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \mygrLadder
+
+  \begin{scope}[shift={(3,0)}]
+    \mygrLadderMattchingA
+  \end{scope}
+
+\end{tikzpicture}
+\end{figure}\pause
+
+Lanțul $(v_1,u_2,v_0,u_0)$ este un lanț de creștere relativ la cuplajul indicat (dreapta).\pause
+
+Lanțul $(u_2,v_0,u_0)$ este un lanț alternant, dar nu este un lanț de creștere.
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cuplaje maxime}
+
+\begin{theorem}[Berge]
+Un cuplaj $M$ este cuplaj maxim în graful simplu $G$ dacă și numai dacă nu există în $G$ lanțuri de creștere relativ la $M$. 
+\end{theorem}\pause
+
+Ideea teoremei rezidă în faptul că dacă $P$ este un lanț de creștere relativ la cuplajul $M$ atunci mulțimea $M\Delta E(P)$ este un cuplaj ce are cu o muchie mai mult decît $M$.\pause 
+
+Așadar condițiile ``un cuplaj $M$ este maxim'' și ``există un lanț de creștere relativ la $M$'' se exclud mutual.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Acoperirea muchiilor cu vîrfuri}
+ 
+De la condiții care se exclud mutual trecem la condiții care sînt duale.\pause
+
+O \emph{acoperiere a muchiilor cu vîrfuri} (sau \emph{suport} al grafului, sau \emph{transversală}) în $G$ este o submulțime $U\subseteq V(G)$ astfel încît orice muchie $e\in E(G)$ este incidentă cu cel puțin un vîrf din $U$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Acoperirea muchiilor cu vîrfuri}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \mygrLadder
+
+  \begin{scope}[shift={(3,0)}]
+    \mygrLadderCovering
+
+  \end{scope}
+
+\end{tikzpicture}
+\caption{ De la stînga spre dreapta: un graf împreună cu o acoperire a muchiilor}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Cuplaje maxime}
+
+Evident, pentru orice graf $G$ mulțimea $V(G)$ este o acoperire a muchiilor maximă.\pause
+
+Din acest motiv are sens să căutăm mulțimi de acoperire a muchiilor minime.\pause
+
+\begin{theorem}[K\" onig]
+Fie $G$ un graf bipartit atunci numărul de muchie-independență este egal cu cardinalul mulțimilor de acoperire a muchiilor minime.
+\end{theorem}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{Cuplaje perfecte}
+
+Nu orice graf conține cuplaje perfecte; de exemplu: 
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexNoLabel
+  \grEmptyCycle[RA=1,rotation=45]{4}
+  \grComplete[x=3,RA=1]{3}
+  \grComplete[x=6,RA=1,rotation=7.2]{5}
+\end{tikzpicture}
+  
+\end{figure}
+
+
+\alert{Care-s condițiile necesare și suficiente pentru ca un graf să conțină un cuplaj perfect?}
+
+Pentru a găsi răspuns la acestă întrebare:
+\begin{enumerate}
+  \item vom cerceta grafurile bipartite;
+  \item vom cerceta grafurile generale, dar migrînd la alt unghi de vedere.
+\end{enumerate}
+
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Grafuri bipartite}
+
+\alert{Cînd un graf bipartit are un cuplaj perfect?}\pause
+
+Fie $G$ un graf bipartit cu bipartiția mulțimii vîrfurilor $\{X,Y\}$. \pause
+
+Evident, un cuplaj perfect trebuie să satureze vîrfurile din $X$.\pause
+
+Evident, pentru ca să existe un cuplaj care să satureze $X$ trebuie ca fie care vîrf din $X$ să aibă suficienți vecini în $Y$, adică  
+$|N(S)|\geq |S|$, $S\subseteq X$.
+
+
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Grafuri bipartite}
+
+Cînd un graf bipartit are un cuplaj perfect?\pause
+
+Fie $G$ un graf bipartit cu bipartiția $\{X,Y\}$. Un cuplaj perfect saturează vîrfurile din $X$.\pause
+
+Pentru ca să existe un cuplaj care să satureze $X$ trebuie ca fie care vîrf din $X$ să aibă suficienți vecini în $Y$, 
+$|N(S)|\geq |S|$, $S\subseteq X$.\pause
+
+\begin{theorem}[Hall]
+Un graf bipartit $G$ cu $\{X,Y\}$ conține un cuplaj pentru $X$ dacă și numai dacă  $|N(S)|\geq |S|$, $S\subseteq X$
+\end{theorem}\pause
+
+\begin{corollary}[Teorema Căsătoriei]
+Dacă $G$ este bipartit $k$-regulat, $k\geq 1$, atunci $G$ conține un cuplaj perfect. 
+\end{corollary}
+
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Problema căsătoriei}
+
+Dacă fiecare fată dintr-un sat cunoaşte exact $p$ băieţi şi fiecare băiat cunoaşte exact $q$ fete atunci fiecare fată se poate mărită cu un băiat pe care-l cunoaşte şi fiecare băiat poate lua de soţie o fată pe care o cunoaşte dacă și numai dacă $p=q$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Demonstrația teoremei căsătoriei}
+
+Dacă $G$ este $k$-regulat rezultă că $|X|=|Y|=k$.\pause
+
+Așadar (în baza teoremi Hall) este suficient să arătăm că există un cuplaj care saturează mulțimea $X$.
+Pentru în teorema lui Hall se ține cont doar de gradele vîrfurilor.\pause
+
+Fie $S\subseteq X$ are $k|S|$ vecini.\pause
+
+Astfel $|N(S)|=k|S|\geq |S|$.
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Grafuri generale cu alt unghi de vedere: noțiunea de $k$-factor}
+
+\begin{itemize}[<+->]
+  \item Orice subgraf de acoperire $k$-regulat al unui graf $G$ se numește \emph{$k$-factor} [al lui $G$];
+    \begin{itemize}
+      \item în particular, \alert{1-factor = cuplaj perfect}.
+    \end{itemize}
+  \item Mai general, orice subgraf de acoperire al unui graf $G$ se numește \emph{factor} [al lui $G$];
+    \begin{itemize}
+      \item o \emph{factorizare} a grafului $G$ este o mulțime de factori muchie-disjuncți reuniuena cărora este $G$;
+      \item în particular, \emph{1-factorizare} - mulțime de 1-factori muchie-disjuncți a căror reunine este $G$.
+    \end{itemize}
+  \item În matematică, cuvîntul ``factor'', deseori apare în cazurile cînd elementele ``similare'' ale unei mulțimi/clase sînt grupate în raport cu o careva relație de echivalență;
+    \begin{itemize}
+      \item grupul factor $\mathbb{Z}_n$ al grupului $\mathbb{Z}$.
+    \end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exemplu de $k$-factori și $k$-factorizare}
+
+%\begin{minipage}{0.5\textwidth}
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexNoLabel
+  \grComplete[RA=1,rotation=45]{4}
+    \draw (0,-1.2) node (G){$G$};
+
+  \begin{scope}[shift={(3,0)}]
+    \grEmptyCycle[RA=1,rotation=45]{4}
+      \Edge(a0)(a1); \Edge(a2)(a3)
+      \draw (0,-1.2) node (H1){$H_1$};
+  \end{scope}
+
+  \begin{scope}[shift={(6,0)}]
+    \grEmptyCycle[RA=1,rotation=45]{4}
+      \Edge(a0)(a3); \Edge(a1)(a2)
+      \draw (0,-1.2) node (H2){$H_2$};
+  \end{scope}
+
+  \begin{scope}[shift={(0,-3)}]
+    \grEmptyCycle[RA=1,rotation=45]{4}
+      \Edge(a0)(a2); \Edge(a1)(a3)
+      \draw (0,-1.2) node (H3){$H_3$};
+  \end{scope}
+
+  \begin{scope}[shift={(3,-3)}]
+    \grEmptyCycle[RA=1,rotation=45]{4}
+      \draw (0,-1.2) node (H4){$H_4$};
+  \end{scope}    
+
+  \begin{scope}[shift={(6,-3)}]
+    \grEmptyCycle[RA=1,rotation=45]{4}
+      \Edge(a1)(a2); \Edge(a2)(a3); \Edge(a0)(a2)
+      \draw (0,-1.2) node (H5){$H_5$};
+  \end{scope}    
+
+\end{tikzpicture}%
+\caption{Un graf $G$ împreună cu subgrafurile sale: $H_1$,$H_2$, ...,$H_5$.
+Subgrafurile $H_1$,$H_2$,$H_3$ sînt 1-factori și îmreună formează o 1-factorizare;
+$H_4$ este o 0-factorizare; $H_5$ este factor, dar nu și $k$-factor.
+}
+\end{figure}
+%\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{O condiție necesară de existență a 1-factorilor}
+
+Să ne întoarcem la întrebarea din care cauză am introdus noțiunea de ``1-factor''.\pause
+
+Și anume: \alert{care-s condițiile necesare și suficiente pentru ca într-un graf să existe 1-factori}.\pause
+
+\alert{Pentru moment o condiție necesară:}\pause
+
+\begin{itemize}[<+->]
+  \item Dacă un graf conține 1-factori atunci acesta are un număr par de vîrfuri;
+    \begin{itemize}
+      \item un 1-factor nu poate să existe pe un număr impar de vîrfuri;
+      \item într-un graf numărul de vîrfuri de grad impar trebuie să fie par.
+    \end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Încă o condiție necesară de existență a 1-factorilor}
+
+Notăm, pentru orice graf $G$, prin $q(G)$ numărul de componente de ordin impar (adică, care au un numar impar de vîrfuri).\pause
+
+\alert{Încă o condiție necesară:}\pause
+
+Dacă $G$ conține 1-factori atunci $q(G\setminus S)\leq |U|$ pentru orice $U\subseteq V(G)$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Demonstrație}
+
+\begin{enumerate}[<+->]
+  \item Fie $F$ un 1-factor al grafului $G$.
+  \item Fie $U\setminus V(G)$ și presupunem că $q(G-U)=k$.
+  \item Alegem o numerotare oarecare pentru componentele impare: $H_1, H_2, ..., H_k$.
+  \item Considerăm $H_i$; $H_i\cap F$ nu poate fi un 1-factor pe $H_i$ întrucît acesta din urmă are un numar impar de vîrfuri.
+  \item Așadar în $H_i$ trebuie să existe un vîrf $x_i$ care să fie unit/cuplat prin $F$ cu un vîrf $y_i\notin H_i$.
+  \item Vîrful $y_i\in U$;
+    \begin{itemize}
+      \item dacă îndepărtarea mulțimii $U$ a dat naștere la componentele $H_1,H_2,...,H_k$ reiese că în graful inițial nu existau muchii între vîrfurile din $H_i$ și $H_j$ (toate lanțurile treceau prin $U$).
+    \end{itemize}
+  \item Așadar $q(G\setminus U)\leq |U|$.
+\end{enumerate}
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{O condiție necesară și suficientă de existență a 1-factorilor}
+
+\begin{theorem}[Tutte]
+Un graf $G$ conține un 1-factor dacă  $q(G\setminus S)\leq |U|$ pentru orice $U\subseteq V(G)$. 
+\end{theorem}\pause
+
+\begin{corollary}[Petersen]
+Orice graf cubic (3-regulat) fără punți conține un 1-factor. 
+\end{corollary}
+
+
+
+
+\end{frame}
+
+
+
+
+\end{document}
+

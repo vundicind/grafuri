@@ -1,0 +1,583 @@
+
+\title{Curs 3: Grafuri; Subgrafuri; Operații}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+  \frametitle{Subgraf}
+
+Un \emph{subgraf} al unui graf $G$ este un graf $H$ astfel încît $V(H)\subseteq V(G)$, $E(H)\subseteq E(G)$ și pentru orice muchie din $E(H)$ capetele 
+acesteia sînt în $V(G)$.\pause
+
+Altfel spus, trebuie să avem $E(H)\subseteq [V(H)]^2$ pentru ca $H$ să poată fi numit subgraf al lui $G$.\pause
+
+Pentru a desemna că $H$ este subgraf al lui $G$ utilizăm notația $H\subseteq G$ și putem spune că $H$ se \emph{conține} în $G$ (sau $G$ conține $H$).\pause
+
+Dacă $H\subseteq G$, $H\neq\emptyset$ și $H\neq G$ spunem că $H$ este un \emph{subgraf propriu} al lui $G$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exemple}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \begin{scope}
+    \mygrHouse
+    \draw (1,-1.7) node (G){$G$};
+  \end{scope}
+
+  \pause
+
+  \begin{scope}[shift={(5,0)}]
+    {
+      \SetUpEdge[color=gray!40]
+      \tikzset{VertexStyle/.append style={color=gray!40}}
+      \renewcommand*{\VertexTextColor}{gray!40}
+
+      \mygrHouse
+    }
+    \Vertex[Lpos=180]{v}
+    \NOEA(v){u}
+    \SOEA(u){x}
+    \SO[Lpos=180](v){z}
+    \Edges(v,u)
+    \Edges(z,x)
+    \draw (1,-1.7) node (H){$H=(\{u,v,x,z\},\{uv,xz\})$};
+  \end{scope}
+
+  \pause
+
+  \begin{scope}[shift={(0,-4)}]
+    {
+      \SetUpEdge[color=gray!40]
+      \tikzset{VertexStyle/.append style={color=gray!40}}
+      \renewcommand*{\VertexTextColor}{gray!40}
+
+      \mygrHouse
+    }
+    \Vertex[Lpos=180]{v}
+    \NOEA(v){u}
+    \SOEA(u){x}
+    \SO(x){y}
+    \SO[Lpos=180](v){z}
+    \draw (1,-1.7) node (I){$I=(\{u,v,x,y,z\},\{\})$};
+  \end{scope}
+
+  \pause
+
+  \begin{scope}[shift={(5,-4)}]
+    {
+      \SetUpEdge[color=gray!40]
+      \tikzset{VertexStyle/.append style={color=gray!40}}
+      \renewcommand*{\VertexTextColor}{gray!40}
+
+      \mygrHouse
+    }
+    \Vertex[Lpos=180]{v}
+    \NOEA(v){u}
+    \SOEA(u){x}
+    \SO[Lpos=180](v){z}
+    \Edges(v,u)
+    \Edges(z,x)
+    \Edges(v,y)
+    \draw (1,-1.7) node (J){$J=(\{u,v,x,z\},\{uv,xz,vy\})$};
+  \end{scope}
+  
+\end{tikzpicture}
+\only<5>{\caption{Structura $J$ nu este subgraf al lui $G$}}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cazuri particulare de subgrafuri}
+
+\begin{itemize}
+ \item Dacă $H\subseteq G$ și $V(H)=V(G)$, atunci $H$ se numește 
+  \emph{subgraf de acoperire}.\pause
+ \item Dacă $H\subseteq G$ și $E(H)$ conține toate muchiile $uv\in E(G)$ cu 
+  $u,v\in V(H)$, atunci $H$ se numește subgraf \emph{indus}%
+  (sau \emph{generat}) de mulțimea $V(H)$ -- și se notează $H=G[V(H)]$.\pause
+
+ \item Dacă $H\subseteq G$ și $V(G)$ constă \emph{numai} din extremitățile 
+  muchiilor din $E(H)$ atunci $H$ se numește subgraf \emph{muchie-indus} 
+  de $E(H)$ și se notează $G[E(H)]$.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exemple}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \begin{scope}
+    \mygrHouse
+    \draw (1,-1.7) node (G){$G$};
+  \end{scope}
+\pause
+  \begin{scope}[shift={(5,0)}]
+    {
+      \SetUpEdge[color=gray!40]
+      \tikzset{VertexStyle/.append style={color=gray!40}}
+      \renewcommand*{\VertexTextColor}{gray!40}
+
+      \mygrHouse
+    }
+    \Vertex[Lpos=180]{v}
+    \NOEA(v){u}
+    \SOEA(u){x}
+    \SO[Lpos=180](v){z}
+    \Edges(v,u,x,z)
+    \Edges(v,x)
+    \draw (1,-1.7) node (H){$H=G[\{u,v,x,z\}]$};
+  \end{scope}
+\pause
+  \begin{scope}[shift={(5,-4)}]
+    {
+      \SetUpEdge[color=gray!40]
+      \tikzset{VertexStyle/.append style={color=gray!40}}
+      \renewcommand*{\VertexTextColor}{gray!40}
+
+      \mygrHouse
+    }
+    \Vertex[Lpos=180]{v}
+    \NOEA(v){u}
+    \SOEA(u){x}
+    \SO(x){y}
+    \SO[Lpos=180](v){z}
+    \Edges(v,u)
+    \Edges(z,x)
+    \Edges(v,y)
+    \draw (1,-1.7) node (J){$J=G[\{uv,xz,vy\}]$};
+  \end{scope}
+  
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Cazuri particulare de subgrafuri}
+
+Evident, orice graf $G$ își este subgraf de acoperire.
+
+Evident, $G=G[V(G)]$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Maximalitate/minimalitate}
+
+Spunem că un subgraf $H$ este \emph{maximal} în raport cu o proprietate dacă nu există un alt subgraf $I$ cu acestă proprietate și $H\subset I$.\pause
+
+Spunem că un subgraf $H$ este \emph{minimal} în raport cu o proprietate dacă nu există un alt subgraf $I$ cu acestă proprietate și $H\supset I$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Maximalitate/minimalitate}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \begin{scope}
+    \grCycle[RA=1,prefix=v]{4}
+    \Vertex[L=v_4]{v4}
+    \Edges(v1,v4)
+    \begin{scope}[on background layer]
+      \draw[line width=14pt, color=gray!40, rounded corners=7pt] (v0.center) -- (v1.center) -- (v2.center) -- (v3.center) -- (v0.center);
+    \end{scope}
+    \draw (0,-2) node (G) {$G$};
+  \end{scope}
+
+\only<3->{
+
+  \begin{scope}[shift={(4,0)}]
+    \grCycle[RA=1,prefix=v]{4}
+    \SetUpVertex[Lpos=90]
+    \grPath[RA=1,prefix=u,x=2]{2}
+    \begin{scope}[on background layer]
+      \node[draw,rectangle,rounded corners,fill=gray!40,gray!40,fit=(v0) (v1) (v2) (v3)] {};
+      \node[draw,rectangle,rounded corners,fill=gray!40,gray!40,fit=(u0) (u1)] {};
+    \end{scope}
+    \draw (1.5,-2) node (H) {$H$};
+  \end{scope}
+}
+\end{tikzpicture}
+\end{figure}
+
+\only<2->{
+În graful $G$ subgraful evidențiat [cu sur] este un subgraf minimal care conține un ciclu.
+}
+
+\only<4->{
+În graful $H$ cel două subgrafuri evidențiate [cu sur] sînt maximal conexe.
+}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Componente conexe}
+
+Subgrafurile maximal conexe se numesc \emph{componente conexe} (sau simplu \emph{coponente}).\pause
+
+Un graf conex constă dintr-o singură comonentă conexă.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Componente conexe}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+  \SetVertexNoLabel
+
+  \begin{scope}
+    \grCycle[RA=1,prefix=v]{4}
+    \Vertex[L=v_4]{v4}
+    \draw (0,-2) node (G) {$G$};
+  \end{scope}
+
+  \begin{scope}[shift={(4,0)}]
+    \grEmptyCycle[RA=1,prefix=v]{4}
+    \Vertex[L=v_4]{v4}
+    \Edges(v0,v3)
+    \Edges(v1,v2)
+    \draw (0,-2) node (H) {$H$};
+  \end{scope}
+
+\end{tikzpicture}
+\end{figure}
+
+Graful $G$ constă din 2 componente conexe.
+
+Graful $H$ constă din 3 componente conexe.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Operații; Suprimarea unui vîrf}
+
+\emph{Suprimarea} unui vîrf $v$ dintr-un graf $G$ presupune îndepărtarea vîrfului propriuzis și îndepărtarea tuturor muchiilor incidente cu $v$; se notează $G-v$.\pause
+
+Echivalent, $G-v=G[V(G)\setminus\{v\}]$.\pause
+
+\begin{figure}
+\begin{tikzpicture}
+  \SetVertexNoLabel
+  \grComplete[RA=1,rotation=45]{4}
+  \SetVertexLabel
+  \Vertex{v}
+     \draw (0,-1.5) node (K4){$K_4$}; 
+
+  \draw[->,ultra thick,line width=0.5mm] (1.5,0) -- (2.5,0);     
+     
+  \SetVertexNoLabel
+  \grCycle[RA=1,rotation=45,x=4]{4}  
+     \draw (4,-1.5) node (K4v){$K_4-v$};   
+\end{tikzpicture}
+\end{figure}
+
+Sinonime pentru operația ``suprimare'': ``ștergerea'', ``înlăturarea'', ``îndepărtarea'', ``eliminarea'' unui vîrf.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Suprimarea unei muchii}
+
+\emph{Suprimarea} unei muchii $e$ dintr-un graf $G$ presupune îndepărtarea doar muchiei propriuzise; se notează $G-e$.\pause
+
+Echivalent, $G-e$ este graful $(V(G), E')$ cu $E'=E\setminus\{e\}$.\pause
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \Vertices{circle}{v,x,y,z}
+  \Edges(v,x,y,z,v)
+    \draw (0,-2) node (Gv){$G$};
+    
+  \draw[->,ultra thick,line width=0.5mm] (2.5,0) -- (3.5,0); 
+
+  \begin{scope}[shift={(6,0)}]
+    \Vertices{circle}{v,x,y,z}
+    \Edges(v,x) \Edges(y,z,v)
+      \draw (0,-2) node (Gxy){$G-xy$};
+  \end{scope}  
+
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Contracția muchiilor}
+
+\emph{Contracția} unei muchii $e=uv$ [într-un vîrf $v_e$] presupune suprimarea muchiei $e$ și înlocuirea vîrfurilor $u,v$ printr-un singur vîrf $v_e$ adiacente vecinilor atît vecinilor lui $u$ cît și vecinilor lui $v$.\pause
+
+Contracția unei muchii $e$ a unui graf $G$ se notează $G/e$.\pause
+
+Formal $G/e=(V(G)\setminus\{u,v\}\cup \{v_e\},E')$ unde $v\notin V(G)\cup E(G)$, iar 
+\[
+  \begin{array}{ll}
+    E'&=\{xy\in E(G):xy\cap uv=\emptyset\}\\
+      &\cup \{v_ey:uy\in E(G)\setminus\{e\} \text{ sau } vy\in E(G)\setminus\{e\}\}.
+  \end{array}
+\]
+
+
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Contracția muchiilor}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+  \SetVertexNoLabel
+ 
+  \grCycle[RA=1,prefix=u]{4}
+  \grCycle[RA=1,prefix=v,x=3]{4}
+  \Edge(u0)(v2) 
+  \SetVertexLabel  
+  \Vertex[x=1,y=0,Lpos=90]{u}  \Vertex[x=2,y=0,Lpos=90]{v}
+    \draw (1.5,-2) node (G){$G$};
+    
+  \draw[->,ultra thick,line width=0.5mm] (4.5,0) -- (5.5,0);   
+
+  \begin{scope}[shift={(7,0)}]
+    \SetVertexNoLabel
+    \grCycle[RA=1,prefix=u]{4}
+    \grCycle[RA=1,prefix=v,x=2]{4}
+    \SetVertexLabel  
+    \Vertex[x=1,y=0,Lpos=90,L=v_e]{ve}
+      \draw (1,-2) node (Guv){$G/uv$};
+  \end{scope}    
+\end{tikzpicture}
+\end{figure}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Adăugarea unei muchii}
+
+\emph{Suma} dintre un graf $G$ și o muchie $e$ se notează $G+e$ și este graful $(V(G)\cup V(e),E(G)\cup e)$. 
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Generalizarea unor operațiilor}
+ 
+Ștergerea unei mulțimi de vîrfuri $U\subseteq V$,
+\[
+  G-U=G[V\setminus U].
+\]\pause
+
+Ștergerea unei mulțimi de muchii $F\subseteq E$,
+\[
+  G-F=(V,E\setminus F).
+\]\pause
+
+Suma dintre un graf $G$ și o muțime de muchii $F$,
+\[
+  G+F=(V\cup V(F),E\cup F).
+\]
+
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Maximalitate/minimalitate}
+
+Spunem că un graf $G$ este \emph{muchie-maximal} cu o anumită proprietate dacă $G$ are acestă proprietate, dar $G+uv$, pentru orice vîrfuri neadiacente $u$ și $v$ din $G$, nu are această proprietate.\pause
+
+Spunem că un graf $G$ este \emph{muchie-minimal} cu o anumită proprietate dacă $G$ are acestă proprietate, dar $G-uv$, pentru orice vîrfuri adiacente $u$ și $v$ din $G$, nu are această proprietate.\pause
+
+Un graf $G$ este \emph{maximal} cu o anumită proprietate dacă $G$ are această proprietate, iar orice alt graf $H$ cu $H\supset G$ nu are acestă proprietate.\pause
+
+Un graf $G$ este \emph{minimal} cu o anumită proprietate dacă $G$ are această proprietate, iar orice alt subgraf $H$ cu $H\subset G$ nu are acestă proprietate.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Maximalitate/minimalitate}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \begin{scope}
+    \grEmptyCycle[RA=1,prefix=v]{4}
+    \Edges(v0,v1)
+    \Edges(v2,v3)
+  \end{scope}
+
+  \begin{scope}[shift={(4,0)}]
+    \SetUpVertex[Lpos=15]
+    \grStar[RA=1,prefix=v]{4}
+  \end{scope}
+
+\end{tikzpicture}
+\caption{Aceste grafuri sînt muchie-maximale cu $P_3\subseteq G$} [p.165, Diestel]
+\end{figure}
+
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Punți}
+
+Fiind dat un graf $G$, o muchie $e\in E(G)$ se numește \emph{punte} dacă $G-e$ are mai multe componenete conexe decît $G$.\pause
+
+Sînt grafuri care nu au punți, de exemplu, $K_n$ sau $C_n$.\pause
+
+Dacă $G$ este conex și orice muchie a sa este punte $\Leftrightarrow$ $G$ este muchie-minimal conex.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Punți}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \mygrHouse
+\end{tikzpicture}
+\caption{Muchia $zx$ este punte; celelalte muchii nu sînt punți.}
+\end{figure}
+ 
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Vîrfuri de articulare}
+
+Fiind dat un graf $G$, un vîrf $v\in V(G)$ se numește \emph{vîrf de articulare} dacă $G-v$ are mai multe componenete conexe decît $G$.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Vîrfuri de articulare}
+
+\begin{figure}
+\centering%
+\begin{tikzpicture}
+  \SetVertexMath
+
+  \SetUpVertex[Lpos=10]
+  \grPath[RA=1,prefix=v]{5}
+\end{tikzpicture}
+\caption{Toate vîrfurile cu excepția vîrfurilor $v_0$ și $v_4$ sînt vîrfuri de articulare}
+\end{figure}
+ 
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Punți; Cicluri}
+
+\begin{theorem}\label{GTA-2.3}
+O muchie $e$ a unui graf conex $G$ este punte dacă și numai dacă nu există un 
+ciclu în $G$ [în] care să [se] conțină această muchie.
+\end{theorem}
+\begin{proof}[Demonstrație; Necesitatea]
+Fie $e\in E(G)$ o punte în $G$ atunci $G-e$ conține mai multe componente decît $G$. \pause
+
+Adică există cel puțin două vîrfuri $u$ și $v$ care-s conexe în $G$, dar nu și în $G-e$. \pause
+
+Acest fapt implică existența unui $uv$-lanț $P$ care trece prin $e$ (de fapt toate $uv$-lanțurile trec prin $e$). \pause
+
+Notăm prin $x$ și $y$ capetele muchiei $e$ și considerăm că $x$ precede $y$ în $P$. 
+
+\end{proof} 
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Punți; Cicluri}
+
+\begin{proof}[Demonstrație; Necesitatea; Continuare]
+
+Așadar în $G-e$ vîrful $u$ este conectat cu $x$ printr-o secțiune a lui $P$ și $y$ este conectat cu $v$ prin altă secțiune a lui $P$. \pause
+
+Dacă în $G$ ar fi existat un ciclu $C$ care ar conține muchia $e$ atunci $x$ și $y$ ar fi conectați în $G-e$ prin lanțul $C-e$ și respectiv $u$ și $v$ ar fi conectați în $G-e$. \pause
+
+Am obținut o contradicție.
+ 
+\end{proof}
+
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Punți; Cicluri}
+
+\begin{proof}[Demonstrație; Suficiența]
+Vom demonstra implicația inversă, adică dacă $e$ nu este punte atunci ea se conține într-un ciclu. \pause
+
+Presupunem că $e$ nu este punte, atunci $G-e$ are același numar de componente ca și $G$. \pause
+
+Notînd prin $x$ și $y$ capetele muchiei $e$ reiese că $x$ și $y$ sînt conectate în $G-e$.\pause
+
+Adică există un $xy$-lanț $P$ în $G-e$.\pause
+ 
+Atunci $e$ se conține în ciclul $P+e$ din $G$.\pause
+
+Presupunem că teorema este adevărată pentru orice două vîrfuri la distanță mai mică decît $k$. \pause
+
+Fie $u$, $v$ două vîrfuri la distanța $k$. 
+
+\end{proof} 
+ 
+\end{frame}
+
+\begin{frame}
+
+\begin{proof}[Demonstrație; Suficiența; Continuare]
+
+Adică între ele există un $k$-lanț $P$. \pause
+
+Fie $w$ un vîrf din $P$ care precede $v$. \pause
+
+Atunci $d(u,w)=k-1$ și deci între $u$ și $w$ există două lanțuri independente $P$ și $Q$. \pause
+
+Deoarece $G$ este 2-conex reiese că dacă eliminăm $w$ graful rămîne conex și deci între $u$ și $v$ există un lanț $P'$ în $G-w$.\pause
+
+Acum dacă $P'$ nu intersectează nici $P$ nici $Q$ teorema este demonstrată. \pause
+
+Deaceea presupunem fără a pierde din generalitate că $V(P')\cap V(P)=x$ și deci iată lanțurile independente căutate: primul: $u$, secțiunea din $P$ de la $u$ spre $x$, $x$, secțiunea din $P'$ de la $x$ spre $v$, $v$.\pause
+
+Al doilea: $Q$ împreună cu $wv$.
+ 
+\end{proof}
+
+ 
+\end{frame}
+
+
+
+
+
+\end{document}
+
